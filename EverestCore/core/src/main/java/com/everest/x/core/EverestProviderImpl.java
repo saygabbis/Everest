@@ -49,6 +49,40 @@ public final class EverestProviderImpl implements EverestProvider {
     }
 
     @Override
+    public boolean teleportToSpawn(Player player) {
+        return plugin.spawn().isEnabled() && plugin.spawn().teleport(player);
+    }
+
+    @Override
+    public boolean teleportToSpawn(Player player, String name) {
+        return plugin.spawn().isEnabled() && plugin.spawn().teleport(player, name);
+    }
+
+    @Override
+    public boolean hasSpawn() {
+        return plugin.spawn().isEnabled()
+                && plugin.spawn().isConfigured()
+                && plugin.spawn().location() != null;
+    }
+
+    @Override
+    public boolean hasSpawn(String name) {
+        return plugin.spawn().isEnabled()
+                && plugin.spawn().exists(name)
+                && plugin.spawn().location(name) != null;
+    }
+
+    @Override
+    public String getMotherSpawnName() {
+        return plugin.spawn().motherName();
+    }
+
+    @Override
+    public Collection<String> getSpawnNames() {
+        return plugin.spawn().names();
+    }
+
+    @Override
     public void registerHook(EverestHook hook) {
         plugin.hooks().register(hook);
         plugin.getLogger().info("Hook registrado: " + hook.getDisplayName() + " (" + hook.getId() + ")");

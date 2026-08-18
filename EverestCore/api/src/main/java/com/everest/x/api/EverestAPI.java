@@ -57,6 +57,30 @@ public final class EverestAPI {
         require().sendToServer(player, serverId);
     }
 
+    public static boolean teleportToSpawn(Player player) {
+        return require().teleportToSpawn(player);
+    }
+
+    public static boolean teleportToSpawn(Player player, String name) {
+        return require().teleportToSpawn(player, name);
+    }
+
+    public static boolean hasSpawn() {
+        return require().hasSpawn();
+    }
+
+    public static boolean hasSpawn(String name) {
+        return require().hasSpawn(name);
+    }
+
+    public static String getMotherSpawnName() {
+        return require().getMotherSpawnName();
+    }
+
+    public static Collection<String> getSpawnNames() {
+        return require().getSpawnNames();
+    }
+
     public static void registerHook(EverestHook hook) {
         require().registerHook(hook);
     }

@@ -6,9 +6,23 @@ description: Hub da rede Everest — user, economia e comunicação entre plugin
 softdepend: []
 commands:
   everest:
-    description: Informações do EverestCore
-    usage: /everest [reload|hooks]
+    description: Informações e utilitários do EverestCore
+    usage: /everest [reload|hooks|config|spawn|setspawn]
+  spawn:
+    description: Teleporta para o spawn mãe ou para um spawn nomeado
+    usage: /spawn [nome]
+    permission: everest.spawn
+  setspawn:
+    description: Cria ou atualiza um spawn nomeado
+    usage: /setspawn <nome>
+    permission: everest.setspawn
 permissions:
   everest.admin:
-    description: Recarregar o Core
+    description: Recarregar o Core e abrir suas configurações
+    default: op
+  everest.spawn:
+    description: Ir ao spawn mãe ou a um spawn nomeado
+    default: true
+  everest.setspawn:
+    description: Criar ou atualizar spawns nomeados
     default: op

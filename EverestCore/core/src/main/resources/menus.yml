@@ -1,0 +1,29 @@
+config:
+  title: "&8Configuração do Everest"
+  rows: 4
+
+  items:
+    spawn:
+      slot: 13
+      material: BLAZE_ROD
+      name: "&6Spawns"
+      lore:
+        - "&7Gerencie os pontos de spawn"
+        - "&7deste servidor."
+        - ""
+        - "&eClique para abrir."
+
+  # A última fileira é reservada para navegação.
+  navigation:
+    back:
+      slot: 27
+      material: ARROW
+      name: "&aVoltar"
+      lore:
+        - "&7Volta ao menu anterior."
+    close:
+      slot: 35
+      material: BARRIER
+      name: "&cFechar"
+      lore:
+        - "&7Fecha este menu."

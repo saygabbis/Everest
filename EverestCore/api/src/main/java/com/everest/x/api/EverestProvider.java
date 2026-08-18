@@ -24,6 +24,21 @@ public interface EverestProvider {
 
     void sendToServer(Player player, String serverId);
 
+    /**
+     * @return {@code true} se o spawn padrão existe e o jogador foi teleportado
+     */
+    boolean teleportToSpawn(Player player);
+
+    boolean teleportToSpawn(Player player, String name);
+
+    boolean hasSpawn();
+
+    boolean hasSpawn(String name);
+
+    String getMotherSpawnName();
+
+    Collection<String> getSpawnNames();
+
     void registerHook(EverestHook hook);
 
     void unregisterHook(EverestHook hook);

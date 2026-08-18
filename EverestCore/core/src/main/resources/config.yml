@@ -18,3 +18,12 @@ storage:
 
 coins:
   starting: 0
+
+# Spawns nomeados deste servidor.
+# O primeiro criado vira o spawn mãe (join/respawn). Troca de mãe vem no config.
+spawn:
+  enabled: true
+  teleport-on-join: true
+  teleport-on-respawn: true
+  mother: ''
+  points: {}

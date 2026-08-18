@@ -6,7 +6,11 @@ import com.everest.x.core.command.EverestCommand;
 import com.everest.x.core.config.Messages;
 import com.everest.x.core.config.PluginSettings;
 import com.everest.x.core.hook.HookRegistry;
+import com.everest.x.core.menu.ConfigMenu;
+import com.everest.x.core.menu.ConfigMenuListener;
 import com.everest.x.core.network.ProxyMessenger;
+import com.everest.x.core.spawn.SpawnListener;
+import com.everest.x.core.spawn.SpawnService;
 import com.everest.x.core.storage.StorageFactory;
 import com.everest.x.core.storage.UserRepository;
 import com.everest.x.core.user.User;
@@ -28,6 +32,8 @@ public final class EverestCorePlugin extends JavaPlugin {
     private UserCache users;
     private HookRegistry hooks;
     private ProxyMessenger proxy;
+    private SpawnService spawn;
+    private ConfigMenu configMenu;
     private EverestProviderImpl provider;
 
     @Override
@@ -39,6 +45,8 @@ public final class EverestCorePlugin extends JavaPlugin {
         users = new UserCache(this);
         hooks = new HookRegistry();
         proxy = new ProxyMessenger(this);
+        spawn = new SpawnService(this);
+        configMenu = new ConfigMenu(this);
         repository = StorageFactory.createOrDisable(this, settings);
         if (repository == null) {
             getLogger().severe("EverestCore desligado: storage indisponível.");
@@ -52,7 +60,15 @@ public final class EverestCorePlugin extends JavaPlugin {
         getServer().getServicesManager().register(EverestProvider.class, provider, this, ServicePriority.Normal);
 
         getServer().getPluginManager().registerEvents(new UserListener(this), this);
-        getCommand("everest").setExecutor(new EverestCommand(this));
+        getServer().getPluginManager().registerEvents(new SpawnListener(this), this);
+        getServer().getPluginManager().registerEvents(new ConfigMenuListener(this), this);
+        EverestCommand command = new EverestCommand(this);
+        getCommand("everest").setExecutor(command);
+        getCommand("everest").setTabCompleter(command);
+        getCommand("spawn").setExecutor(command);
+        getCommand("spawn").setTabCompleter(command);
+        getCommand("setspawn").setExecutor(command);
+        getCommand("setspawn").setTabCompleter(command);
 
         for (Player player : getServer().getOnlinePlayers()) {
             loadOnline(player);
@@ -88,7 +104,13 @@ public final class EverestCorePlugin extends JavaPlugin {
         reloadConfig();
         settings = new PluginSettings(getConfig());
         messages.reload();
-        getLogger().info("Config e mensagens recarregadas. Storage não é reaberto no reload.");
+        if (spawn != null) {
+            spawn.reload();
+        }
+        if (configMenu != null) {
+            configMenu.reload();
+        }
+        getLogger().info("Config, mensagens e menus recarregados. Storage não é reaberto no reload.");
     }
 
     public void persistAsync(User user) {
@@ -145,5 +167,13 @@ public final class EverestCorePlugin extends JavaPlugin {
 
     public ProxyMessenger proxy() {
         return proxy;
+    }
+
+    public SpawnService spawn() {
+        return spawn;
+    }
+
+    public ConfigMenu configMenu() {
+        return configMenu;
     }
 }

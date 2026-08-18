@@ -1,0 +1,20 @@
+# EverestCore — o banco (MySQL) fica no servidor da rede, não neste repositório.
+# FILE funciona sem banco, para testar o jar. MYSQL quando a rede tiver dois+ servidores.
+
+server:
+  id: lobby-1
+  # LOBBY, DUELS, BEDWARS, SURVIVAL, OTHER
+  type: LOBBY
+
+storage:
+  type: FILE
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    database: everest
+    username: everest
+    password: ''
+    pool-size: 10
+
+coins:
+  starting: 0

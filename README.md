@@ -38,6 +38,9 @@ Cada modo roda em servidor próprio. O que é comum à rede (conta, coins, party
 
 ## Este repositório
 
-Um monorepo. Os módulos (`api`, `core`, `lobby`, `duels`, …) entram conforme a rede for sendo construída.
+Um monorepo: cada plugin numa pasta.
 
-Prioridade atual: a rede existir (Core + proxy + lobby). Os modos vêm depois.
+- `EverestCore/` — hub (conta, coins, comunicação entre plugins)
+- Depois: `EverestLobby`, `EverestDuels`, `EverestBedwars`, `EverestSurvival`, …
+
+Prioridade atual: o Core. Os modos vêm depois.

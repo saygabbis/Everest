@@ -1,0 +1,16 @@
+.gradle/
+build/
+**/build/
+out/
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.DS_Store
+*.class
+hs_err_pid*
+
+# Jars gerados; o wrapper de cada plugin precisa ficar versionado
+*.jar
+!**/gradle/wrapper/gradle-wrapper.jar

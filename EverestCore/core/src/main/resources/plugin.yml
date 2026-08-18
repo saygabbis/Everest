@@ -1,0 +1,14 @@
+name: EverestCore
+version: ${version}
+main: com.everest.x.core.EverestCorePlugin
+author: Everest
+description: Hub da rede Everest — user, economia e comunicação entre plugins.
+softdepend: []
+commands:
+  everest:
+    description: Informações do EverestCore
+    usage: /everest [reload|hooks]
+permissions:
+  everest.admin:
+    description: Recarregar o Core
+    default: op

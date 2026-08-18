@@ -1,0 +1,31 @@
+plugins {
+    id 'com.gradleup.shadow' version '8.3.6' apply false
+}
+
+allprojects {
+    group = 'com.everest.x'
+    version = '0.1.0'
+}
+
+subprojects {
+    apply plugin: 'java-library'
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.release = 17
+    }
+
+    repositories {
+        mavenCentral()
+        maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+        maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url = 'https://repo.md-5.net/content/groups/public/' }
+        maven { url = 'https://repo.md-5.net/content/repositories/snapshots/' }
+    }
+}

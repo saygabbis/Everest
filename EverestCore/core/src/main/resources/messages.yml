@@ -1,0 +1,12 @@
+prefix: "&6Everest &8» &7"
+
+command:
+  info:
+    - "{prefix}&6EverestCore &7v{version}"
+    - "{prefix}&7Servidor: &f{server-id} &8(&f{server-type}&8)"
+    - "{prefix}&7Ping: &f{ping}ms"
+    - "{prefix}&7Coins: &f{coins}"
+    - "{prefix}&7Plugins ligados: &f{hooks}"
+  hooks: "{prefix}&7Hooks: &f{hooks}"
+  reloaded: "{prefix}&aConfiguração recarregada."
+  no-permission: "{prefix}&cVocê não tem permissão."

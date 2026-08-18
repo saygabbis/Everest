@@ -1,0 +1,7 @@
+rootProject.name = 'EverestCore'
+
+include 'everest-api'
+include 'everest-core'
+
+project(':everest-api').projectDir = file('api')
+project(':everest-core').projectDir = file('core')

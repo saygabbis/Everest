@@ -7,37 +7,37 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 
-public final class ConfigMenuListener implements Listener {
+public final class MenuListener implements Listener {
 
     private final EverestCorePlugin plugin;
 
-    public ConfigMenuListener(EverestCorePlugin plugin) {
+    public MenuListener(EverestCorePlugin plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        if (!(event.getInventory().getHolder() instanceof ConfigMenu.ConfigMenuHolder)) {
+        if (!(event.getInventory().getHolder() instanceof MenuHolder holder)) {
+            return;
+        }
+        if (!(event.getWhoClicked() instanceof Player player)) {
+            event.setCancelled(true);
+            return;
+        }
+        int top = event.getView().getTopInventory().getSize();
+        if (event.getRawSlot() < top) {
+            plugin.menus().handleClick(event, player, holder);
+            return;
+        }
+        if (holder.view() == MenuHolder.View.EDIT) {
             return;
         }
         event.setCancelled(true);
-
-        if (!(event.getWhoClicked() instanceof Player player)) {
-            return;
-        }
-        int slot = event.getRawSlot();
-        if (slot == plugin.configMenu().backSlot() || slot == plugin.configMenu().closeSlot()) {
-            player.closeInventory();
-            return;
-        }
-        if (slot == plugin.configMenu().spawnSlot()) {
-            player.sendMessage(plugin.messages().get("command.config.spawn-coming-soon"));
-        }
     }
 
     @EventHandler
     public void onDrag(InventoryDragEvent event) {
-        if (event.getInventory().getHolder() instanceof ConfigMenu.ConfigMenuHolder) {
+        if (event.getInventory().getHolder() instanceof MenuHolder) {
             event.setCancelled(true);
         }
     }

@@ -39,6 +39,7 @@ public final class UserListener implements Listener {
                     }
                     plugin.users().put(user);
                     plugin.getServer().getPluginManager().callEvent(new EverestUserLoadEvent(user));
+                    plugin.spawnListener().applyJoin(player, user);
                 });
             } catch (Exception exception) {
                 plugin.getLogger().log(Level.SEVERE, "Falha ao carregar " + name, exception);
@@ -53,6 +54,7 @@ public final class UserListener implements Listener {
         if (user == null) {
             return;
         }
+        plugin.spawn().rememberLogout(event.getPlayer(), user);
         plugin.persistAsync(user);
         plugin.users().remove(uuid);
     }

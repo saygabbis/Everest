@@ -12,14 +12,37 @@ command:
   reloaded: "{prefix}&aConfiguração recarregada."
   no-permission: "{prefix}&cVocê não tem permissão."
   players-only: "{prefix}&cSó jogadores podem usar isso."
-  config:
-    spawn-coming-soon: "{prefix}&eA configuração visual de spawns será adicionada aqui."
   spawn:
     teleported: "{prefix}&aVocê foi para o spawn &f{name}&a."
     set: "{prefix}&aSpawn &f{name} &adefinido em &f{world} &7({x}, {y}, {z})."
     set-usage: "{prefix}&cUse: &f/setspawn <nome>&c."
-    invalid-name: "{prefix}&cNome inválido. Use apenas letras sem acento, números, _ ou - (máximo de 32)."
+    invalid-name: "{prefix}&cNome inválido. Use letras (com acento), números, _ ou - (máximo de 32)."
     not-found: "{prefix}&cO spawn &f{name} &cnão existe."
     missing: "{prefix}&cNenhum spawn foi definido. Use &f/setspawn <nome>&c."
     disabled: "{prefix}&cO sistema de spawn está desativado."
     world-missing: "{prefix}&cO mundo do spawn (&f{world}&c) não está carregado."
+
+menu:
+  rename:
+    intro: "{prefix}&7Digite o novo nome do spawn no chat."
+    highlight: "{prefix}&e&l{name}"
+    hint: "{prefix}&8Letras (com acento), números, _ ou - | 30s | escreva &fcancelar &8para sair."
+    exists: "{prefix}&cJá existe um spawn chamado &f{name}&c."
+    fail: "{prefix}&cNão foi possível renomear esse spawn."
+    done: "{prefix}&aSpawn renomeado para &e&l{name}&a."
+  create:
+    intro: "{prefix}&7Digite no chat o nome do novo spawn."
+    highlight: "{prefix}&e&lNOME-AQUI"
+    exists: "{prefix}&cJá existe um spawn chamado &f{name}&c."
+    done: "{prefix}&aSpawn &e&l{name} &acriado na sua posição."
+  prompt-expired: "{prefix}&cTempo esgotado. Abra o menu de novo."
+  prompt-cancelled: "{prefix}&7Beleza, cancelei."
+  position:
+    updated: "{prefix}&aPosição do spawn &f{name} &aatualizada."
+  default:
+    set: "{prefix}&a&l{name} &aagora é o spawn padrão (join spawn)."
+  icon:
+    need-item: "{prefix}&ePegue um bloco no criativo e clique no ícone do menu."
+    set: "{prefix}&aÍcone atualizado para &f{item}&a."
+  delete:
+    done: "{prefix}&cSpawn &f{name} &cremovido."

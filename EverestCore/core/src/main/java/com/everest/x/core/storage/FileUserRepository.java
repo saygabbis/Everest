@@ -1,6 +1,7 @@
 package com.everest.x.core.storage;
 
 import com.everest.x.core.user.User;
+import com.everest.x.core.util.YamlFiles;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,13 +27,14 @@ public final class FileUserRepository implements UserRepository {
             long now = System.currentTimeMillis();
             return new User(uuid, name, startingCoins, now, now);
         }
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(file);
+        YamlConfiguration yaml = YamlFiles.load(file);
         return new User(
                 uuid,
                 yaml.getString("name", name),
                 yaml.getLong("coins", startingCoins),
                 yaml.getLong("first-join", System.currentTimeMillis()),
-                yaml.getLong("last-join", System.currentTimeMillis())
+                yaml.getLong("last-join", System.currentTimeMillis()),
+                yaml.getString("last-spawn", "")
         );
     }
 
@@ -45,7 +47,8 @@ public final class FileUserRepository implements UserRepository {
         yaml.set("coins", user.getCoins());
         yaml.set("first-join", user.getFirstJoin());
         yaml.set("last-join", user.getLastJoin());
-        yaml.save(file);
+        yaml.set("last-spawn", user.lastSpawn());
+        YamlFiles.save(yaml, file);
     }
 
     @Override

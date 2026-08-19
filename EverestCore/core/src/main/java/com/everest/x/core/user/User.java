@@ -15,16 +15,22 @@ public final class User implements EverestUser {
     private volatile String name;
     private volatile long coins;
     private volatile long lastJoin;
+    private volatile String lastSpawn;
     private JavaPlugin plugin;
     private Scheduler scheduler;
     private Runnable persist;
 
     public User(UUID uuid, String name, long coins, long firstJoin, long lastJoin) {
+        this(uuid, name, coins, firstJoin, lastJoin, "");
+    }
+
+    public User(UUID uuid, String name, long coins, long firstJoin, long lastJoin, String lastSpawn) {
         this.uuid = uuid;
         this.name = name;
         this.coins = coins;
         this.firstJoin = firstJoin;
         this.lastJoin = lastJoin;
+        this.lastSpawn = lastSpawn == null ? "" : lastSpawn;
     }
 
     public void attach(JavaPlugin plugin, Scheduler scheduler, Runnable persist) {
@@ -89,6 +95,14 @@ public final class User implements EverestUser {
 
     public void setLastJoin(long lastJoin) {
         this.lastJoin = lastJoin;
+    }
+
+    public String lastSpawn() {
+        return lastSpawn;
+    }
+
+    public void setLastSpawn(String lastSpawn) {
+        this.lastSpawn = lastSpawn == null ? "" : lastSpawn;
     }
 
     private void applyCoins(long newAmount) {

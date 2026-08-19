@@ -1,0 +1,52 @@
+plugins {
+    id 'java-library'
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+group = 'com.everest.x'
+version = '0.1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 17
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url = 'https://repo.md-5.net/content/groups/public/' }
+    maven { url = 'https://repo.md-5.net/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compileOnly('org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5', module: 'bungeecord-chat'
+    }
+    compileOnly 'net.md-5:bungeecord-chat:1.16-R0.4'
+    compileOnly 'com.everest.x:everest-api:0.1.0'
+}
+
+processResources {
+    filteringCharset = 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand version: project.version
+    }
+}
+
+shadowJar {
+    archiveBaseName.set('EverestParkour')
+    archiveClassifier.set('')
+}
+
+tasks.build.dependsOn tasks.shadowJar
+
+tasks.jar {
+    enabled = false
+}

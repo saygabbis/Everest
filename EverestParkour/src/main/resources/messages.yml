@@ -1,0 +1,77 @@
+prefix: "&6Parkour &8» &7"
+
+no-permission: "{prefix}&cVocê não tem permissão."
+players-only: "{prefix}&cSó jogadores podem usar isso."
+unknown: "{prefix}&cSubcomando desconhecido. Use &f/pk ajuda&c."
+reloaded: "{prefix}&aConfiguração recarregada."
+
+help:
+  - "{prefix}&6EverestParkour"
+  - "{prefix}&e/pk join <pista> &7- entrar"
+  - "{prefix}&e/pk leave &7- sair"
+  - "{prefix}&e/pk list &7- listar pistas"
+  - "{prefix}&e/pk create <nome> &7- criar"
+  - "{prefix}&e/pk edit <nome> &7- selecionar pra editar"
+  - "{prefix}&e/pk finish [nome] &7- encerrar edição (define a chegada se ainda não tiver)"
+  - "{prefix}&e/pk setstart &7- início"
+  - "{prefix}&e/pk addcp &7- checkpoint"
+  - "{prefix}&e/pk failheight &7- altura de queda"
+  - "{prefix}&e/pk delete <nome> &7- apagar"
+
+invalid-name: "{prefix}&cNome inválido. Use letras (com acento), números, _ ou - (máximo de 32)."
+not-found: "{prefix}&cA pista &f{name} &cnão existe."
+exists: "{prefix}&cJá existe uma pista chamada &f{name}&c."
+created: "{prefix}&aPista &e&l{name} &acriada. Defina início, checkpoints e use &f/pk finish&a para concluir a edição."
+deleted: "{prefix}&cPista &f{name} &cremovida."
+editing: "{prefix}&aEditando a pista &e&l{name}&a."
+need-edit: "{prefix}&cSelecione uma pista com &f/pk edit <nome>&c."
+already-editing: "{prefix}&cVocê já está editando &f{name}&c. Use &f/pk finish &cantes de criar ou editar outra."
+need-start: "{prefix}&cDefina o início com &f/pk setstart &cantes de finalizar a edição."
+finish-checkpoints: "{prefix}&cPasse por todos os checkpoints antes de terminar."
+edit-done: "{prefix}&aPista &e&l{name} &apronta. Edição encerrada."
+list-empty: "{prefix}&7Nenhuma pista criada ainda."
+list-header: "{prefix}&6Pistas:"
+list-line: "{prefix}&e{name} &8- {status}"
+ready: "pronta"
+incomplete: "incompleta"
+
+set-start: "{prefix}&aInício da pista &f{name} &adefinido."
+add-checkpoint: "{prefix}&aCheckpoint &f#{index} &adicionado em &f{name}&a."
+set-end: "{prefix}&aChegada da pista &f{name} &adefinida."
+set-fail: "{prefix}&aQueda da pista &f{name} &adefinida em Y &f{y}&a."
+not-ready: "{prefix}&cEssa pista ainda não tem início e chegada."
+
+join: "{prefix}&aVocê entrou na pista &e&l{name}&a. Vai!"
+leave: "{prefix}&7Você saiu do parkour."
+not-in: "{prefix}&cVocê não está em um parkour."
+already: "{prefix}&cVocê já está na pista &f{name}&c. Use &f/pk leave &cantes."
+restart: "{prefix}&eTimer reiniciado."
+checkpoint: "{prefix}&aCheckpoint &f#{index}&a! &7{time}"
+fail: "{prefix}&cVocê caiu. Voltando ao último checkpoint. &7{time}"
+finish: "{prefix}&a&lConcluiu &e&l{name} &aem &f{time}&a!"
+record: "{prefix}&6Novo recorde pessoal: &f{time}"
+best: "{prefix}&7Seu melhor: &f{best}"
+reward: "{prefix}&6+{coins} coins"
+back-checkpoint: "{prefix}&eVocê voltou ao último checkpoint."
+
+kit:
+  restart:
+    name: "&6Reiniciar"
+    lore:
+      - "&7Clique direito para recomeçar"
+      - "&7a pista do início."
+  checkpoint:
+    name: "&eCheckpoint"
+    lore:
+      - "&7Clique direito para voltar"
+      - "&7ao último checkpoint."
+  leave:
+    name: "&cSair"
+    lore:
+      - "&7Clique direito para sair"
+      - "&7e recuperar seu inventário."
+
+hologram:
+  start: "&a&lIniciar Parkour"
+  checkpoint: "&e&lCHECKPOINT #{index}"
+  end: "&6&lCHEGADA"

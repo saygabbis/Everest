@@ -2,9 +2,10 @@ config:
   title: "&8Configuração do Everest"
   rows: 4
 
+home:
+  title: "&8Configuração do Everest"
   items:
-    spawn:
-      slot: 13
+    spawns:
       material: BLAZE_ROD
       name: "&6Spawns"
       lore:
@@ -13,17 +14,119 @@ config:
         - ""
         - "&eClique para abrir."
 
-  # A última fileira é reservada para navegação.
-  navigation:
-    back:
-      slot: 27
-      material: ARROW
-      name: "&aVoltar"
-      lore:
-        - "&7Volta ao menu anterior."
-    close:
-      slot: 35
-      material: BARRIER
-      name: "&cFechar"
-      lore:
-        - "&7Fecha este menu."
+spawns:
+  title: "&8Spawns"
+  empty:
+    name: "&cNenhum spawn"
+    lore:
+      - "&7Crie um com o esmeralda abaixo"
+      - "&7ou use &f/setspawn <nome>&7."
+  create:
+    name: "&aNovo spawn"
+    lore:
+      - "&7Cria um spawn na sua posição."
+      - ""
+      - "&eClique e digite o nome no chat."
+
+edit:
+  title: "&8Spawn: {name}"
+  rename:
+    name: "&eRenomear"
+    lore:
+      - "&7Troca o nome deste spawn."
+      - ""
+      - "&eClique e digite no chat."
+  icon:
+    name: "&bÍcone"
+    lore:
+      - "&7O item que aparece na lista."
+      - ""
+      - "&ePegue um bloco no criativo"
+      - "&ee clique aqui para trocar."
+  position:
+    name: "&bAtualizar posição"
+    lore:
+      - "&7Salva este spawn onde você está."
+      - ""
+      - "&eClique para atualizar."
+  default:
+    name: "&6Spawn padrão"
+    lore-on:
+      - "&7Join spawn global: quem entra no"
+      - "&7servidor vem para cá, em qualquer"
+      - "&7mundo, se não houver retorno no login."
+      - ""
+      - "&aEste é o spawn padrão"
+      - "&eClique para manter."
+    lore-off:
+      - "&7Join spawn global: quem entra no"
+      - "&7servidor vem para cá, em qualquer"
+      - "&7mundo, se não houver retorno no login."
+      - ""
+      - "&7Não é o spawn padrão"
+      - "&eClique para definir."
+  logout:
+    name: "&dRetorno no login"
+    lore-on:
+      - "&7Se o jogador sair neste mundo,"
+      - "&7volta para este spawn na próxima"
+      - "&7entrada em vez do spawn padrão."
+      - "&7Ex.: lobby do Bedwars."
+      - ""
+      - "&aAtivado"
+      - "&eClique para desligar."
+    lore-off:
+      - "&7Se o jogador sair neste mundo,"
+      - "&7volta para este spawn na próxima"
+      - "&7entrada em vez do spawn padrão."
+      - "&7Ex.: lobby do Bedwars."
+      - ""
+      - "&cDesativado"
+      - "&eClique para ligar."
+  world-respawn:
+    name: "&cRespawn do mundo"
+    lore-on:
+      - "&7Quem morrer neste mundo respawna"
+      - "&7aqui, não no spawn padrão."
+      - ""
+      - "&aAtivado"
+      - "&eClique para desligar."
+    lore-off:
+      - "&7Quem morrer neste mundo respawna"
+      - "&7aqui, não no spawn padrão."
+      - ""
+      - "&cDesativado"
+      - "&eClique para ligar."
+  delete:
+    name: "&cRemover spawn"
+    lore:
+      - "&7Apaga este spawn para sempre."
+      - ""
+      - "&cClique para confirmar."
+
+delete:
+  title: "&8Remover?"
+  confirm:
+    name: "&aConfirmar"
+    lore:
+      - "&7Remove o spawn de vez."
+      - ""
+      - "&cIsso não tem volta."
+  cancel:
+    name: "&cCancelar"
+    lore:
+      - "&7Volta sem apagar nada."
+
+nav:
+  back:
+    name: "&aVoltar"
+    lore:
+      - "&7Volta ao menu anterior."
+  home-back:
+    name: "&7Fechar"
+    lore:
+      - "&7Fecha este menu."
+  close:
+    name: "&cFechar"
+    lore:
+      - "&7Fecha este menu."

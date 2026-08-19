@@ -73,8 +73,14 @@ public final class EverestAPI {
         return require().hasSpawn(name);
     }
 
+    public static String getDefaultSpawnName() {
+        return require().getDefaultSpawnName();
+    }
+
+    /** @deprecated use {@link #getDefaultSpawnName()} */
+    @Deprecated
     public static String getMotherSpawnName() {
-        return require().getMotherSpawnName();
+        return require().getDefaultSpawnName();
     }
 
     public static Collection<String> getSpawnNames() {

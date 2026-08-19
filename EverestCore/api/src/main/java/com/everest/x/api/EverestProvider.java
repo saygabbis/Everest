@@ -35,7 +35,14 @@ public interface EverestProvider {
 
     boolean hasSpawn(String name);
 
-    String getMotherSpawnName();
+    /** Nome do spawn padrão (join spawn). */
+    String getDefaultSpawnName();
+
+    /** @deprecated use {@link #getDefaultSpawnName()} */
+    @Deprecated
+    default String getMotherSpawnName() {
+        return getDefaultSpawnName();
+    }
 
     Collection<String> getSpawnNames();
 

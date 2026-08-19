@@ -1,7 +1,7 @@
-package com.everest.x.core.config;
+package com.everest.x.parkour.config;
 
-import com.everest.x.core.util.Colors;
-import com.everest.x.core.util.YamlFiles;
+import com.everest.x.parkour.util.Colors;
+import com.everest.x.parkour.util.YamlFiles;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,11 +28,7 @@ public final class Messages {
         }
         yaml = YamlFiles.load(file);
         yaml.setDefaults(YamlFiles.load(plugin.getResource("messages.yml")));
-        prefix = Colors.color(yaml.getString("prefix", "&6Everest &8» &7"));
-    }
-
-    public String prefix() {
-        return prefix;
+        prefix = Colors.color(yaml.getString("prefix", "&6Parkour &8» &7"));
     }
 
     public String get(String path) {
@@ -65,5 +61,14 @@ public final class Messages {
             colored.add(text);
         }
         return colored;
+    }
+
+    public String raw(String path, String fallback) {
+        String value = yaml.getString(path);
+        return value == null || value.isBlank() ? fallback : value;
+    }
+
+    public List<String> rawList(String path) {
+        return yaml.getStringList(path);
     }
 }

@@ -73,8 +73,8 @@ public final class EverestProviderImpl implements EverestProvider {
     }
 
     @Override
-    public String getMotherSpawnName() {
-        return plugin.spawn().motherName();
+    public String getDefaultSpawnName() {
+        return plugin.spawn().defaultName();
     }
 
     @Override

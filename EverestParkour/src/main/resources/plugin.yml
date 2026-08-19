@@ -1,0 +1,18 @@
+name: EverestParkour
+version: ${version}
+main: com.everest.x.parkour.EverestParkourPlugin
+author: Everest
+description: Parkour da rede Everest — pistas, checkpoints e tempos.
+softdepend: [EverestCore]
+commands:
+  parkour:
+    description: Comandos do parkour Everest
+    usage: /parkour [join|leave|create|edit|list|...]
+    aliases: [pk, evparkour, evpk]
+permissions:
+  everest.parkour.play:
+    description: Jogar pistas de parkour
+    default: true
+  everest.parkour.admin:
+    description: Criar e editar pistas
+    default: op

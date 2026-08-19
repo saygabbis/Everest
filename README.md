@@ -7,6 +7,7 @@ Jogadores entram pelo proxy e escolhem o modo no lobby. Clientes de **1.8 até 1
 ## Modos
 
 - **Lobby** — hub da rede
+- **Parkour**
 - **Duels** — 1v1
 - **Bedwars**
 - **Survival**
@@ -19,6 +20,7 @@ Jogador (1.8 → 1.21)
         ↓
    Velocity (proxy)
         ├── Lobby
+        ├── Parkour
         ├── Duels
         ├── Bedwars
         └── Survival
@@ -41,6 +43,7 @@ Cada modo roda em servidor próprio. O que é comum à rede (conta, coins, party
 Um monorepo: cada plugin numa pasta.
 
 - `EverestCore/` — hub (conta, coins, comunicação entre plugins)
+- `EverestParkour/` — pistas de parkour
 - Depois: `EverestLobby`, `EverestDuels`, `EverestBedwars`, `EverestSurvival`, …
 
 Prioridade atual: o Core. Os modos vêm depois.

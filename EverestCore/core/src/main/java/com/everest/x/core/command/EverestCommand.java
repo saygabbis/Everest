@@ -36,6 +36,9 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
         if (command.getName().equalsIgnoreCase("setspawn")) {
             return setSpawn(sender, args);
         }
+        if (command.getName().equalsIgnoreCase("evconfig")) {
+            return config(sender);
+        }
         if (args.length == 0) {
             return info(sender);
         }
@@ -61,6 +64,9 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         String root = command.getName().toLowerCase(Locale.ROOT);
+        if (root.equals("evconfig")) {
+            return Collections.emptyList();
+        }
         if (root.equals("spawn") || root.equals("setspawn")) {
             return args.length == 1 ? matchingSpawns(args[0]) : Collections.emptyList();
         }
@@ -79,7 +85,7 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
     }
 
     private List<String> matchingSpawns(String input) {
-        String prefix = input.toLowerCase(Locale.ROOT);
+        String prefix = input.toLowerCase(new Locale("pt", "BR"));
         return plugin.spawn().names().stream()
                 .filter(name -> name.startsWith(prefix))
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -130,9 +136,9 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
         }
         Location location = spawn.location();
         if (location == null) {
-            return spawn.motherName() + " (mundo ausente)";
+            return spawn.defaultName() + " (mundo ausente)";
         }
-        return spawn.motherName() + " · " + location.getWorld().getName()
+        return spawn.defaultName() + " - " + location.getWorld().getName()
                 + " "
                 + format(location.getX()) + ", "
                 + format(location.getY()) + ", "
@@ -162,7 +168,7 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(plugin.messages().get("command.no-permission"));
             return true;
         }
-        plugin.configMenu().open(player);
+        plugin.menus().openHome(player);
         return true;
     }
 
@@ -184,7 +190,7 @@ public final class EverestCommand implements CommandExecutor, TabCompleter {
             player.sendMessage(plugin.messages().get("command.spawn.missing"));
             return true;
         }
-        String name = args.length == 0 ? spawn.motherName() : SpawnService.normalize(args[0]);
+        String name = args.length == 0 ? spawn.defaultName() : SpawnService.normalize(args[0]);
         if (name.isEmpty() || !spawn.exists(name)) {
             player.sendMessage(plugin.messages().get("command.spawn.not-found",
                     "name", args.length == 0 ? "?" : args[0]));

@@ -9,6 +9,7 @@ public enum ServerType {
     DUELS,
     BEDWARS,
     SURVIVAL,
+    PARKOUR,
     OTHER;
 
     public static ServerType fromConfig(String raw) {

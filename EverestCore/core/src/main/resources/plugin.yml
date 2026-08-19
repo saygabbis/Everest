@@ -8,20 +8,28 @@ commands:
   everest:
     description: Informações e utilitários do EverestCore
     usage: /everest [reload|hooks|config|spawn|setspawn]
+    aliases: [ev]
+  evconfig:
+    description: Abre o menu de configuração do EverestCore
+    usage: /evconfig
+    permission: everest.admin
+    aliases: [evc]
   spawn:
-    description: Teleporta para o spawn mãe ou para um spawn nomeado
+    description: Teleporta para o spawn padrão ou para um spawn nomeado
     usage: /spawn [nome]
     permission: everest.spawn
+    aliases: [evspawn]
   setspawn:
     description: Cria ou atualiza um spawn nomeado
     usage: /setspawn <nome>
     permission: everest.setspawn
+    aliases: [evsetspawn]
 permissions:
   everest.admin:
     description: Recarregar o Core e abrir suas configurações
     default: op
   everest.spawn:
-    description: Ir ao spawn mãe ou a um spawn nomeado
+    description: Ir ao spawn padrão ou a um spawn nomeado
     default: true
   everest.setspawn:
     description: Criar ou atualizar spawns nomeados

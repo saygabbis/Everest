@@ -20,18 +20,20 @@ public final class MySqlUserRepository implements UserRepository {
               name VARCHAR(16) NOT NULL,
               coins BIGINT NOT NULL DEFAULT 0,
               first_join BIGINT NOT NULL,
-              last_join BIGINT NOT NULL
+              last_join BIGINT NOT NULL,
+              last_spawn VARCHAR(32) NOT NULL DEFAULT ''
             )
             """;
 
     private static final String SELECT = """
-            SELECT name, coins, first_join, last_join FROM everest_users WHERE uuid = ?
+            SELECT name, coins, first_join, last_join, last_spawn FROM everest_users WHERE uuid = ?
             """;
 
     private static final String UPSERT = """
-            INSERT INTO everest_users (uuid, name, coins, first_join, last_join)
-            VALUES (?, ?, ?, ?, ?)
-            ON DUPLICATE KEY UPDATE name = VALUES(name), coins = VALUES(coins), last_join = VALUES(last_join)
+            INSERT INTO everest_users (uuid, name, coins, first_join, last_join, last_spawn)
+            VALUES (?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE name = VALUES(name), coins = VALUES(coins),
+              last_join = VALUES(last_join), last_spawn = VALUES(last_spawn)
             """;
 
     private final HikariDataSource dataSource;
@@ -53,6 +55,11 @@ public final class MySqlUserRepository implements UserRepository {
         try (Connection connection = dataSource.getConnection();
              Statement statement = connection.createStatement()) {
             statement.execute(CREATE_TABLE);
+            try {
+                statement.execute("ALTER TABLE everest_users ADD COLUMN last_spawn VARCHAR(32) NOT NULL DEFAULT ''");
+            } catch (SQLException ignored) {
+                // coluna já existe em instalações novas
+            }
         }
     }
 
@@ -68,7 +75,8 @@ public final class MySqlUserRepository implements UserRepository {
                             result.getString("name"),
                             result.getLong("coins"),
                             result.getLong("first_join"),
-                            result.getLong("last_join")
+                            result.getLong("last_join"),
+                            columnOrEmpty(result, "last_spawn")
                     );
                 }
             }
@@ -88,6 +96,7 @@ public final class MySqlUserRepository implements UserRepository {
             upsert.setLong(3, user.getCoins());
             upsert.setLong(4, user.getFirstJoin());
             upsert.setLong(5, user.getLastJoin());
+            upsert.setString(6, user.lastSpawn() == null ? "" : user.lastSpawn());
             upsert.executeUpdate();
         }
     }
@@ -96,6 +105,15 @@ public final class MySqlUserRepository implements UserRepository {
     public void close() {
         if (dataSource != null && !dataSource.isClosed()) {
             dataSource.close();
+        }
+    }
+
+    private static String columnOrEmpty(ResultSet result, String column) throws SQLException {
+        try {
+            String value = result.getString(column);
+            return value == null ? "" : value;
+        } catch (SQLException exception) {
+            return "";
         }
     }
 

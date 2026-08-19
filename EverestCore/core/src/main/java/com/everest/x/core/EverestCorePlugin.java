@@ -6,8 +6,9 @@ import com.everest.x.core.command.EverestCommand;
 import com.everest.x.core.config.Messages;
 import com.everest.x.core.config.PluginSettings;
 import com.everest.x.core.hook.HookRegistry;
-import com.everest.x.core.menu.ConfigMenu;
-import com.everest.x.core.menu.ConfigMenuListener;
+import com.everest.x.core.menu.ChatPrompt;
+import com.everest.x.core.menu.EverestMenus;
+import com.everest.x.core.menu.MenuListener;
 import com.everest.x.core.network.ProxyMessenger;
 import com.everest.x.core.spawn.SpawnListener;
 import com.everest.x.core.spawn.SpawnService;
@@ -17,10 +18,14 @@ import com.everest.x.core.user.User;
 import com.everest.x.core.user.UserCache;
 import com.everest.x.core.user.UserListener;
 import com.everest.x.core.util.Scheduler;
+import com.everest.x.core.util.YamlFiles;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 
 public final class EverestCorePlugin extends JavaPlugin {
@@ -33,8 +38,11 @@ public final class EverestCorePlugin extends JavaPlugin {
     private HookRegistry hooks;
     private ProxyMessenger proxy;
     private SpawnService spawn;
-    private ConfigMenu configMenu;
+    private SpawnListener spawnListener;
+    private EverestMenus menus;
+    private ChatPrompt chatPrompt;
     private EverestProviderImpl provider;
+    private FileConfiguration utfConfig;
 
     @Override
     public void onEnable() {
@@ -46,7 +54,9 @@ public final class EverestCorePlugin extends JavaPlugin {
         hooks = new HookRegistry();
         proxy = new ProxyMessenger(this);
         spawn = new SpawnService(this);
-        configMenu = new ConfigMenu(this);
+        spawnListener = new SpawnListener(this);
+        menus = new EverestMenus(this);
+        chatPrompt = new ChatPrompt(this);
         repository = StorageFactory.createOrDisable(this, settings);
         if (repository == null) {
             getLogger().severe("EverestCore desligado: storage indisponível.");
@@ -60,11 +70,13 @@ public final class EverestCorePlugin extends JavaPlugin {
         getServer().getServicesManager().register(EverestProvider.class, provider, this, ServicePriority.Normal);
 
         getServer().getPluginManager().registerEvents(new UserListener(this), this);
-        getServer().getPluginManager().registerEvents(new SpawnListener(this), this);
-        getServer().getPluginManager().registerEvents(new ConfigMenuListener(this), this);
+        getServer().getPluginManager().registerEvents(spawnListener, this);
+        getServer().getPluginManager().registerEvents(new MenuListener(this), this);
+        getServer().getPluginManager().registerEvents(chatPrompt, this);
         EverestCommand command = new EverestCommand(this);
         getCommand("everest").setExecutor(command);
         getCommand("everest").setTabCompleter(command);
+        getCommand("evconfig").setExecutor(command);
         getCommand("spawn").setExecutor(command);
         getCommand("spawn").setTabCompleter(command);
         getCommand("setspawn").setExecutor(command);
@@ -74,7 +86,7 @@ public final class EverestCorePlugin extends JavaPlugin {
             loadOnline(player);
         }
 
-        getLogger().info("Hub pronto · " + settings.serverId() + " (" + settings.serverType() + ")");
+        getLogger().info("Hub pronto - " + settings.serverId() + " (" + settings.serverType() + ")");
     }
 
     @Override
@@ -100,6 +112,32 @@ public final class EverestCorePlugin extends JavaPlugin {
         }
     }
 
+    @Override
+    public FileConfiguration getConfig() {
+        if (utfConfig == null) {
+            reloadConfig();
+        }
+        return utfConfig;
+    }
+
+    @Override
+    public void reloadConfig() {
+        File file = new File(getDataFolder(), "config.yml");
+        utfConfig = YamlFiles.load(file);
+        FileConfiguration defaults = YamlFiles.load(getResource("config.yml"));
+        utfConfig.setDefaults(defaults);
+    }
+
+    @Override
+    public void saveConfig() {
+        File file = new File(getDataFolder(), "config.yml");
+        try {
+            YamlFiles.save(getConfig(), file);
+        } catch (IOException exception) {
+            getLogger().log(Level.SEVERE, "Falha ao salvar config.yml", exception);
+        }
+    }
+
     public void reloadCore() {
         reloadConfig();
         settings = new PluginSettings(getConfig());
@@ -107,8 +145,8 @@ public final class EverestCorePlugin extends JavaPlugin {
         if (spawn != null) {
             spawn.reload();
         }
-        if (configMenu != null) {
-            configMenu.reload();
+        if (menus != null) {
+            menus.reload();
         }
         getLogger().info("Config, mensagens e menus recarregados. Storage não é reaberto no reload.");
     }
@@ -173,7 +211,15 @@ public final class EverestCorePlugin extends JavaPlugin {
         return spawn;
     }
 
-    public ConfigMenu configMenu() {
-        return configMenu;
+    public SpawnListener spawnListener() {
+        return spawnListener;
+    }
+
+    public EverestMenus menus() {
+        return menus;
+    }
+
+    public ChatPrompt chatPrompt() {
+        return chatPrompt;
     }
 }

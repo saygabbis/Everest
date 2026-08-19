@@ -1,16 +1,37 @@
+# Gradle
 .gradle/
 build/
 **/build/
 out/
+
+# IDEs
 .idea/
 *.iml
 *.ipr
 *.iws
 .vscode/
+.settings/
+.classpath
+.project
+.factorypath
+bin/
+
+# OS
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Java
 *.class
 hs_err_pid*
+replay_pid*
 
 # Jars gerados; o wrapper de cada plugin precisa ficar versionado
 *.jar
 !**/gradle/wrapper/gradle-wrapper.jar
+
+# Servidor local de testes (mundos, logs, configs de runtime)
+EverestTest/
+*.log
+*.log.gz
+crash-reports/
